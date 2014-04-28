@@ -26,13 +26,26 @@ a, a:hover, a:focus {
     text-decoration: none;
     outline: none;
 }
+.failure {
+    color: #ED5565;
+}
+.success {
+    color: #48CFAD;
+}
+.ta-editor {
+  min-height: 300px;
+  height: auto;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 100%;
+}
 ::selection {
 
-    background: #4ECDC4;
+    background: #3498DB;
     color: #fff;
 }
 ::-moz-selection {
-    background: #4ECDC4;
+    background: #3498DB;
     color: #fff;
 }
 
@@ -43,7 +56,7 @@ a, a:hover, a:focus {
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #4ECDC4;
+	background: #3498DB;
 }
 
 .modal-title {
@@ -73,7 +86,7 @@ a, a:hover, a:focus {
 /*Theme Backgrounds*/
 
 .bg-theme {
-	background-color: #4ECDC4;
+	background-color: #3498DB;
 }
 
 .bg-theme02 {
@@ -91,7 +104,7 @@ a, a:hover, a:focus {
 
 .btn-theme {
   color: #fff;
-  background-color: #4ECDC4;
+  background-color: #3498DB;
   border-color: #48bcb4;
 }
 .btn-theme:hover,
@@ -202,11 +215,11 @@ hr {
 /*Exclusive Theme Colors Configuration*/
 
 .label-theme {
-	background-color: #4ECDC4;
+	background-color: #3498DB;
 }
 
 .bg-theme {
-	background-color: #4ECDC4;
+	background-color: #3498DB;
 }
 
 ul.top-menu > li > .logout {
@@ -217,7 +230,7 @@ ul.top-menu > li > .logout {
 	border: 1px solid #64c3c2 !important;
 	padding: 5px 15px;
 	margin-right: 15px;
-	background: #4ECDC4;
+	background: #3498DB;
 	margin-top: 15px;
 }
 
@@ -333,7 +346,7 @@ ul.sidebar-menu li ul.sub li a:hover {
 }
 
 ul.sidebar-menu li ul.sub li.active a {
-    color: #4ECDC4;
+    color: #3498DB;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -372,7 +385,7 @@ ul.sidebar-menu li a{
 }
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-    /*background: #4ECDC4;*/
+    /*background: #3498DB;*/
     color: #fff  !important;
     display: block;
 
@@ -453,7 +466,7 @@ a.logo:hover, a.logo:focus {
 }
 
 a.logo span {
-    color: #4ECDC4;
+    color: #3498DB;
 }
 
 
@@ -531,7 +544,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus, ul.top-menu > li > a.act
 }
 
 .dropdown-menu.extended li p.green {
-    background-color: #4ECDC4;
+    background-color: #3498DB;
     color: #fff;
 }
 
@@ -735,9 +748,9 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus, ul.top-menu > li > a.act
     border-top-color: #FCB322 !important;
 }
 .notify-arrow-green {
-    border-color: transparent transparent #4ECDC4;
-    border-bottom-color: #4ECDC4 !important;
-    border-top-color: #4ECDC4 !important;
+    border-color: transparent transparent #3498DB;
+    border-bottom-color: #3498DB !important;
+    border-top-color: #3498DB !important;
 }
 
 
@@ -821,7 +834,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus, ul.top-menu > li > a.act
 }
 
 .ds a {
-	color: #4ECDC4;
+	color: #3498DB;
 }
 
 /* MAIN CHART CONFIGURATION */
@@ -870,8 +883,8 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus, ul.top-menu > li > a.act
 .custom-bar-chart .bar .value {
     position: absolute;
     bottom: 0;
-    background: #4ECDC4;
-    color: #4ECDC4;
+    background: #3498DB;
+    color: #3498DB;
     width: 100%;
     -webkit-border-radius: 5px 5px 0 0;
     -moz-border-radius: 5px 5px 0 0;
@@ -938,7 +951,10 @@ PANELS CONFIGURATIONS
 	height: 250px;
 	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
-
+.cpn {
+    height: 170px;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
 
 /*Grey Panel*/
 
@@ -1001,7 +1017,7 @@ PANELS CONFIGURATIONS
 /*Green Panel*/
 .green-panel {
 	text-align: center;
-	background: #4ECDC4;
+	background: #3498DB;
 }
 .green-panel .green-header {
 	background: #43b1a9;
@@ -1457,8 +1473,14 @@ PANELS CONFIGURATIONS
 
 /* PROFILE PANELS */
 /* Profile 01*/
+#profile-01.incomplete-profile {
+    background: #DA4453;
+}
+#profile-01.complete-profile {
+    background: #48BCB4;
+}
 #profile-01 {
-	background: url(../img/profile-01.jpg) no-repeat center top;
+	background: #2F2F2F;
 	margin-top: -15px;
 	background-attachment: relative;
 	background-position: center center;
@@ -1485,23 +1507,23 @@ PANELS CONFIGURATIONS
 	margin-bottom: 0px;
 	font-weight: 900;
 }
-.profile-01 {
-	background: #4ECDC4;
+a.profile {
+	background: #3498DB !important;
 	height: 50px;
+    padding:15px;
+    color: white;
+    font-weight: 400;
+    font-size: 15px;
+    display:block;
 }
-.profile-01:hover {
-	background: #2f2f2f;
+a.profile.centered:hover {
+   background: #2f2f2f !important;
+   display:block;
   -webkit-transition: background-color 0.6s;
   -moz-transition: background-color 0.6s;
   -o-transition: background-color 0.6s;
   transition: background-color 0.6s;
   cursor: pointer;
-}
-.profile-01 p {
-	color: white;
-	padding-top: 15px;
-	font-weight: 400;
-	font-size: 15px;
 }
 
 /* Profile 02*/
@@ -1534,7 +1556,7 @@ PANELS CONFIGURATIONS
 	color: #cdcdcd;
 }
 .pr2-social a:hover {
-	color: #4ECDC4;
+	color: #3498DB;
 }
 .pr2-social i {
 	margin-top: 15px;
@@ -1590,7 +1612,7 @@ PANELS CONFIGURATIONS
     font-size: 12px;
 }
 .panel.terques-chart .chart-tittle .value a:hover, .panel.terques-chart .chart-tittle .value a.active {
-    color: #4ECDC4;
+    color: #3498DB;
     font-size: 12px;
 }
 .panel.terques-chart .chart-tittle {
@@ -1673,7 +1695,7 @@ PANELS CONFIGURATIONS
   display: block;
   position: relative;
   overflow: hidden;
-  background-color: #4ECDC4;
+  background-color: #3498DB;
   -webkit-transition: background-color 0.4s;
   -moz-transition: background-color 0.4s;
   -o-transition: background-color 0.4s;
@@ -1693,7 +1715,7 @@ PANELS CONFIGURATIONS
 }
 
 .project:hover .photo-wrapper {
-  background-color: #4ECDC4;
+  background-color: #3498DB;
 	background-image:url(../img/zoom.png);
 	background-repeat:no-repeat;
 	background-position:center;
@@ -1949,7 +1971,7 @@ ul li {
 }
 .dataTables_paginate.paging_bootstrap.pagination li:hover a, .dataTables_paginate.paging_bootstrap.pagination li.active a {
 	color: #fff;
-	background: #4ECDC4;
+	background: #3498DB;
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
 }
@@ -1967,7 +1989,7 @@ ul li {
 	margin: 0;
 	padding: 25px 20px;
 	text-align: center;
-	background: #4ecdc4;
+	background: #3498DB;
 	border-radius: 5px 5px 0 0;
 	-webkit-border-radius: 5px 5px 0 0;
 	color: #fff;
@@ -2067,9 +2089,11 @@ profile-text p {
 	margin-right: 0px;
 	text-transform: uppercase;
 }
-
+.nav-tabs:hover, .nav-tabs > li.active:hover {
+    cursor: pointer;
+}
 .nav-tabs {
-	background: #e0e1e7;
+	background: #fff;
 }
 
 .nav-tabs a {
@@ -2189,7 +2213,7 @@ ul.my-friends li .friends-pic {
 	height:3px;
 	margin: 10px auto;
 	width: 80px;
-	background-color:#4ECDC4;
+	background-color:#3498DB;
 }
 .icn-main-container {
 	position: relative;
@@ -2205,7 +2229,7 @@ ul.my-friends li .friends-pic {
 	font-size: 2.4em;
 	line-height: 100px;
 	color: #fff;
-	background-color:#4ECDC4;	
+	background-color:#3498DB;	
 		-webkit-transition: all 0.6s ease-in-out;
 		transition: all 0.6s ease-in-out;
 }
@@ -2285,7 +2309,7 @@ ul.my-friends li .friends-pic {
 
 .dm-icon:active,
 .dm-icon:hover {
-	background: #4ECDC4
+	background: #3498DB
 }
 
 
@@ -2313,13 +2337,13 @@ ul.my-friends li .friends-pic {
 }
 .mail-nav>li>a:hover,.mail-nav>li>a:focus {
     background:#fafafa;
-    color:#4ECDC4;
+    color:#3498DB;
     border-right:3px solid #1fb5ad;
 }
 .mail-nav>li.active>a,.mail-nav>li.active>a:hover,.mail-nav>li.active>a:focus {
     background:#fafafa;
-    color:#4ECDC4;
-    border-right:3px solid #4ECDC4;
+    color:#3498DB;
+    border-right:3px solid #3498DB;
 }
 .mail-nav>li+li {
     margin-left:0;
@@ -2369,7 +2393,7 @@ a.mail-dropdown {
     padding:20px;
 }
 .btn-compose {
-    background:#4ECDC4;
+    background:#3498DB;
     padding:12px 0;
     text-align:center;
     width:100%;
@@ -2489,6 +2513,14 @@ ul.labels-info li img {
     padding:0 20px;
     border-radius:0 4px 4px 0;
     -webkit-border-radius:0 4px 4px 0;
+}
+.grn-bg {
+    background:#4ECDC4;
+}
+.grn-bg h4 {
+    font-size:24px;
+    color:#fff;
+    font-weight:300;
 }
 .wht-bg {
     background:#fff;
@@ -2696,11 +2728,11 @@ ul.inbox-pagination li {
 }
 
 .view-mail a, .attachment-mail a:hover {
-    color: #4ECDC4;
+    color: #3498DB;
 }
 
 .attachment-mail a{
-    color: #4ECDC4;
+    color: #3498DB;
 }
 
 .attachment-mail ul li  {
@@ -2778,7 +2810,7 @@ ul.inbox-pagination li {
 }
 
 .chat-room-head {
-    background:#4ECDC4;
+    background:#3498DB;
     color: #FFFFFF;
     min-height: 70px;
     padding: 15px;
@@ -2933,7 +2965,7 @@ ul.chat-user li a:hover{
     font-size: 16px;
 }
 .room-box h5 a {
-    color: #4ECDC4;
+    color: #3498DB;
 }
 
 .chat-tools {
@@ -2981,7 +3013,7 @@ ul.chat-available-user li a {
 }
 
 ul.chat-available-user li a:hover {
-    color: #4ECDC4;
+    color: #3498DB;
 }
 
 
@@ -3327,7 +3359,7 @@ ul.chat-available-user li a:hover {
 
 /*footer*/
 .site-footer {
-    background: #4ECDC4;
+    background: #3498DB;
     color: #fff;
     padding: 10px 0;
 }

@@ -2,7 +2,7 @@
 
 namespace Admin\Controllers;
 
-class PermissionsController extends \BaseController {
+class PermissionsController extends BaseController {
 
 	protected $groupForm;
 
@@ -39,6 +39,7 @@ class PermissionsController extends \BaseController {
 			if($this->groupForm->isValidForAdd()){
 				$group = new $this->group;
 				$group->name = \Input::get('name');
+				$group->subject_id = \Input::get('subject_id');
 				$group->save();
 				return \Response::json(['flash' => 'Your group has been successfully added.']);
 			}
@@ -73,6 +74,15 @@ class PermissionsController extends \BaseController {
 			return \Response::json([$this->groupForm->getErrors()->toArray()], 500);
 		}
 		return \Response::json([$this->groupForm->getErrors()->toArray()], 500);
+	}
+
+	public function show($id)
+	{
+		$group = $this->group->where('id', $id)->get()->toArray();
+		if ($group){
+			return \Response::json($group);
+		} 
+		return \Response::json(['flash' => 'no group with that id.']);
 	}
 
 }

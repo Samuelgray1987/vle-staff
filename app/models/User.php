@@ -2,6 +2,7 @@
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
@@ -56,4 +57,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	    return $this->belongsToMany("Group")->withTimestamps();
 	}
 
+	public static function findByUpnOrFail($upn, $columns = array('*')) {
+        
+        if ( ! is_null($upn = static::whereUpn($upn)->first($columns))) {
+        	$upn->primaryKey = "upn";
+            return $upn;
+        }
+   		$upn = static::whereUpn('SGY')->first($columns);
+       	$upn->primaryKey = "upn";
+        return $upn;
+    }
+
+	public function classes()
+	{
+	    return $this->hasMany("StaffClasses", "upn");
+	}
 }

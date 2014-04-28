@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStaffClassesTable extends Migration {
+class CreateStudentClassTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,9 @@ class CreateStaffClassesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('staff_classes', function(Blueprint $table)
+		Schema::create('student_class_list', function(Blueprint $table)
 		{
-			$table->increments();
+			$table->increments('id');
 			$table->string('upn');
 			$table->string('class');
 			$table->timestamps();
@@ -28,7 +28,7 @@ class CreateStaffClassesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::dropIfExists('staff_classes');
+		Schema::dropIfExists('student_class_list');
 	}
 
 }

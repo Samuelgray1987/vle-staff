@@ -15,7 +15,9 @@ class AuthController extends BaseController {
 
 	protected $staffClasses;
 
-	public function __construct(Services\Auth\Ldap\adLDAP $adauth, User $user, Services\Auth\Session\StaffClasses $staffClasses)
+	protected $realsmartLogin;
+
+	public function __construct(Services\Auth\Ldap\adLDAP $adauth, User $user, Services\Auth\Session\StaffClasses $staffClasses, Services\Auth\Realsmart\RealsmartLogin $realsmartLogin)
 	{
 		$this->adauth = $adauth;
 		$this->user = $user;
@@ -23,6 +25,7 @@ class AuthController extends BaseController {
 		$this->username = Input::get('username');
 		$this->password = Input::get('password');
 		$this->staffClasses = $staffClasses;
+		$this->realsmartLogin = $realsmartLogin;
 	}
 
 	public function getIndex()
@@ -59,6 +62,10 @@ class AuthController extends BaseController {
 					$this->staffClasses->addUpn(Auth::user()->upn);
 					$this->staffClasses->requestDetails();
 					$this->staffClasses->addToSession('classes');
+
+					//Realsmart google login
+					$realLink = $this->realsmartLogin->login(Auth::user()->upn);
+					Session::put('realsmart', $realLink);
 
 					return Redirect::to('/reports#/')->with('success', 'Successfully logged in.');
 				} else {

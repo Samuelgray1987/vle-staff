@@ -19,7 +19,7 @@ angular.module('user-controllers').controller('PermissionsController', function(
 
   //Add a new group
   $scope.submit = function() {
-    var promise = GroupsAdd.add({name: this.name, CSRF_TOKEN: CSRF_TOKEN}, function(data){
+    var promise = GroupsAdd.add({name: this.name, subject_id: this.subject_id, CSRF_TOKEN: CSRF_TOKEN}, function(data){
       //Success
       var groups = Groups.get(function(data){
       });
@@ -56,26 +56,30 @@ angular.module('user-controllers').controller('PermissionsController', function(
   window.scope = $scope;
 });
 
-angular.module('user-controllers').controller('AssignPermissionsController', function($scope,FlashService,CSRF_TOKEN,staffUsers){
-  $scope.title = "Assign User Permission Groups";
-
+angular.module('user-controllers').controller('EditPermissionsGroupController', function($scope,staffUsers,FlashService,CSRF_TOKEN,groupDetails,resources, ResourcesUpdate,UserPermissionsUpdate){
+  $scope.title = "Edit " + groupDetails.data[0].name;
   //Data
-  $scope.groups = staffUsers.data.groups;
-  $scope.users = staffUsers.data.users;
-  $scope.resources = staffUsers.data.resources;
+  $scope.resources = resources.data;
+  $scope.group = groupDetails.data;
+  $scope.users = staffUsers.data.active;
 
-  //Controller Debugging
-  window.scope = $scope;
 
-});
+  //Functions
+  $scope.editResource = function(group, resource) {
+    var updated = ResourcesUpdate.update({group: group, resource: resource, CSRF_TOKEN: CSRF_TOKEN}, function(data){
+      console.log(data.flash);
+      alert(data.flash);
+      FlashService.show(data.flash);
+    });
+  }
 
-angular.module('user-controllers').controller('EditPermissionsGroupController', function($scope,FlashService,CSRF_TOKEN,staffUsers){
-  $scope.title = "Edit Group";
-
-  //Data
-  $scope.groups = staffUsers.data.groups;
-  $scope.users = staffUsers.data.users;
-  $scope.resources = staffUsers.data.resources;
+  $scope.editUserPermissions = function(group, user) {
+    var updated = UserPermissionsUpdate.update({group: group, user: user, CSRF_TOKEN: CSRF_TOKEN}, function(data){
+      console.log(data.flash);
+      alert(data.flash);
+      FlashService.show(data.flash);
+    });
+  }
 
   //Controller Debugging
   window.scope = $scope;

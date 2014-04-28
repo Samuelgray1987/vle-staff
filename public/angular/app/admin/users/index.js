@@ -30,21 +30,18 @@ var user = angular.module('user', [
  			}
  		}
  	});
- 	$routeProvider.when('/users-permissions-assign', {
- 		templateUrl: './users-permissions-assign',
- 		controller: 'AssignPermissionsController',
- 		resolve: {
- 			staffUsers: function(StaffUsers) {
- 				return StaffUsers.getAssignDetails();
- 			} 
- 		}
- 	});
- 	$routeProvider.when('/users-permissions-edit-group', {
+ 	$routeProvider.when('/users-permissions-edit-group/:id', {
  		templateUrl: './users-permissions-edit-group',
  		controller: 'EditPermissionsGroupController',
  		resolve: {
+ 			groupDetails: function(Groups) {
+ 				return Groups.individual();
+ 			},
+ 			resources: function(Resources) {
+ 				return Resources.get();
+ 			},
  			staffUsers: function(StaffUsers) {
- 				return StaffUsers.getAssignDetails();
+	 			return StaffUsers.get();
  			} 
  		}
  	});

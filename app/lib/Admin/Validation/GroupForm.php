@@ -15,7 +15,8 @@ class GroupForm extends BaseForm
     {
         return $this->isValid([
             "id"   => "exists:group,id",
-            "name" => "required"
+            "name" => "required",
+            "subject_id" => "min:1|max:20"
         ]);
     }
 

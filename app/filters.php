@@ -32,10 +32,52 @@ App::after(function($request, $response)
 | integrates HTTP Basic authentication for quick, simple checking.
 |
 */
+Route::filter('stdauth', function()
+{
+    if (Auth::guest()) {
+        return Redirect::guest('/');
+    } 
+    return;
+});
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('/');
+	if (Auth::guest()) {
+		return Redirect::guest('/');
+	} else {
+		foreach (Auth::user()->groups as $group)
+        {
+            foreach ($group->resources as $resource)
+            {
+                $path = Route::getCurrentRoute()->getPath();
+                if ($resource->pattern == $path)
+                {
+                    return;
+                }
+            }
+        }
+        return Redirect::to("/")->with('error', 'You do not have permission to access this area.'); 
+	}
+});
+Route::filter('ctrlauth', function()
+{
+	if (Auth::guest()) {
+		return Redirect::guest('/');
+	} else {
+		foreach (Auth::user()->groups as $group)
+        {
+            foreach ($group->resources as $resource)
+            {
+                $segment = Request::segment(1);
+                $path = Route::getCurrentRoute()->getPath();
+                if ($resource->pattern == $segment || $resource->pattern == $path)
+                {
+                    return;
+                }
+            }
+        }
+        return Redirect::to("/")->with('error', 'You do not have permission to access this area.'); 
+	}
 });
 
 

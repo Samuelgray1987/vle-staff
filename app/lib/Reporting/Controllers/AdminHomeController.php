@@ -2,7 +2,7 @@
 
 namespace Reporting\Controllers;
 
-class HomeController extends BaseController {
+class AdminHomeController extends BaseController {
 
 	protected $user;
 
@@ -14,11 +14,6 @@ class HomeController extends BaseController {
 
 	public function __construct(\User $user,\Reporting\Models\StaffClasses $staffClasses, \Reporting\Validation\ReportCardForm $reportCardForm, \Reporting\Models\ReportCard $reportCard)
 	{
-		/*$this->beforeFilter(function(){
-   			if (!\Auth::user()) {
-				return \Redirect::to("/")->with('error', 'Please login first.');
-			}
-   		});	*/
 		$this->user = $user;
 		$this->staffClasses = $staffClasses; 
 		$this->reportCardForm = $reportCardForm;

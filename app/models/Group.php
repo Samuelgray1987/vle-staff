@@ -28,5 +28,4 @@ extends Eloquent
         //$groups = $this->group->find(1)->users()->where('user_id', '=', '54899')->get();
 	    return $this->belongsToMany("User");
 	}
-
 }
