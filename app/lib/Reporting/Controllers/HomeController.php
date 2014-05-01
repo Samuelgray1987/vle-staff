@@ -28,12 +28,16 @@ class HomeController extends BaseController {
 	public function getIndex()
 	{
 		//Hod Permissions, this is specific to creating links not securing the areas.
-		$data['hod'] = false;
+		$data['hod'] = 0;
+		$data['admin'] = 0;
 		if (\Auth::user()->groups) {
 			foreach (\Auth::user()->groups as $group) {
-				if ($group->subject_id) $data['subjects'][] = $group->subject_id;
+				if ($group->subject_id != NULL) {
+					$data['subjects'][] = $group->subject_id;
+					$data['hod'] = 1;
+				}
 				foreach ($group->resources as $resource){
-					if ($resource->pattern == 'reportsadmin') $data['hod'] = true;
+					if ($resource->pattern == 'reportsadmin') $data['admin'] = 1;
 				}
 			}
 		}

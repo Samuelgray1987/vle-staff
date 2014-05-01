@@ -42,8 +42,8 @@
         {
             foreach ($group->resources as $resource)
             {
-            	if($resource->pattern == 'reports') $links['reports'] =  Request::segment(1) == "reports" ? '<li><a class="apps active" href="reports#/">Reports</a></li>' : '<li><a class="apps" href="./reports#/">Reports</a></li>';
-            	if($resource->pattern == 'admin') $links['admin'] = Request::segment(1) == "admin" ? '<li><a class="apps active" href="admin#/">Admin</a></li>' : '<li><a class="apps" href="./admin#/">Admin</a></li>';
+            	if($resource->pattern == 'reports') $links['reports'] =  Request::segment(1) == "reports" ? '<li><a class="apps active" href="./reports#/">Reports</a></li>' : '<li><a class="apps" href="./reports#/">Reports</a></li>';
+            	if($resource->pattern == 'admin') $links['admin'] = Request::segment(1) == "admin" ? '<li><a class="apps active" href="./admin#/">Admin</a></li>' : '<li><a class="apps" href="./admin#/">Admin</a></li>';
             }
         }
     }
@@ -53,5 +53,5 @@
         }
     }
 ?>
-	<li><a class="logout" href="/auth/logout">Logout</a></li>
+	<li><a class="logout" href="./auth/logout">Logout</a></li>
 </ul>

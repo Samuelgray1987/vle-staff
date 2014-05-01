@@ -10,6 +10,11 @@
 | application. Here you may also register your custom route filters.
 |
 */
+App::missing(function($exception)
+{
+    return Response::view('errors.missing', array('url' => Request::url()), 404);
+    return Response::view('errors.programmingerror', array('url' => Request::url()), 500);
+});
 
 App::before(function($request)
 {
