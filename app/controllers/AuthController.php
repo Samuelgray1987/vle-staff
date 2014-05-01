@@ -55,6 +55,7 @@ class AuthController extends BaseController {
 			try
 			{
 				$user = $this->user->where('username', '=', $this->username)->first();
+				//$user = $this->user->where('username', '=', "17734")->first();
 				if($user)
 				{	
 					Auth::login($user, true);

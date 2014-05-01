@@ -35,16 +35,23 @@
 </div>
 <ul class="nav pull-right top-menu">
 <?php
-	foreach (Auth::user()->groups as $group)
+    $links = [];
+    if (Auth::user()->groups) 
     {
-        foreach ($group->resources as $resource)
+    	foreach (Auth::user()->groups as $group)
         {
-        	if($resource->pattern == 'reports') $links['reports'] =  \Request::segment(1) == "reports" ? '<li><a class="apps active" href="reports#/">Reports</a></li>' : '<li><a class="apps" href="./reports#/">Reports</a></li>';
-        	if($resource->pattern == 'admin') $links['admin'] = \Request::segment(1) == "admin" ? '<li><a class="apps active" href="admin#/">Admin</a></li>' : '<li><a class="apps" href="./admin#/">Admin</a></li>';
+            foreach ($group->resources as $resource)
+            {
+            	if($resource->pattern == 'reports') $links['reports'] =  Request::segment(1) == "reports" ? '<li><a class="apps active" href="reports#/">Reports</a></li>' : '<li><a class="apps" href="./reports#/">Reports</a></li>';
+            	if($resource->pattern == 'admin') $links['admin'] = Request::segment(1) == "admin" ? '<li><a class="apps active" href="admin#/">Admin</a></li>' : '<li><a class="apps" href="./admin#/">Admin</a></li>';
+            }
         }
     }
-	if ($links['admin']) echo $links['admin'];
-	if ($links['reports']) echo $links['reports'];
+    if (count($links) > 0) {
+        foreach ($links as $link) {
+            echo $link;
+        }
+    }
 ?>
 	<li><a class="logout" href="/auth/logout">Logout</a></li>
 </ul>

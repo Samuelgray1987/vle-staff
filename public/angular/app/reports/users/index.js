@@ -57,6 +57,11 @@ var reports = angular.module('reports', [
  		controller: 'EditReportCardController'
  	});
 
+ 	$routeProvider.when('/report-cards/admin-edit-report-cards',{
+ 		templateUrl: './views/reportsadmin/reportcard/edit-report-cards',
+ 		controller: 'EditReportCardController'
+ 	});
+
  	$routeProvider.otherwise({
  		redirectTo: '/'
  	});

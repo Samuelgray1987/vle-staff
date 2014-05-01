@@ -32,12 +32,11 @@ class StaffClassesController extends BaseController {
 	public function show($id)
 	{
 		if ($id == "upn") {
-			$id = "ETN";
-			//$id = Auth::user()->upn;
+			$id = Auth::user()->upn;
 		}
 		$userClasses = $this->reportStaffClasses->individualclasses($id);
 		if ($userClasses) return Response::json($userClasses);
-		return Response::json(['error' => 'No class data'], 500);
+		return Response::json(['error' => 'No classes for you to mark for the current collection.']);
 	}
 
 }
