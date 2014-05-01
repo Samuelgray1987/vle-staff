@@ -13,7 +13,7 @@
   <section class="panel">
     <header class="panel-heading wht-bg">
       <h4 class="gen-case">
-        Current Report Collection: Year 10
+        {{title}} <small><br>Current Report Collection: Year 10</small>
           <form action="#" class="pull-right mail-src-position">
               <div class="input-append">
                 <input class="form-control" type="text"  placeholder="Search Classes" ng-model="search.class"></label>
@@ -22,6 +22,9 @@
       </h4>
     </header>
     <div class="panel-body minimal">
+      <div ng-if="myClasses.error" class="alert alert-info">
+        {{myClasses.error}}
+      </div>
       <!--
         Admin
        <div class="row">
@@ -43,15 +46,16 @@
           <thead>
             <tr>
               <th class="text-center">Class</th>
-              <th class="text-center"><i class="fa fa-group"> </i>  Number of Students</th>
-              <th class="text-center"><i class="fa fa-check"> </i> Number Complete</th>
-              <th class="text-center"><i class="fa fa-check"> </i> Number Confirmed</th>
-              <th class="text-center"><i class="fa fa-flag"> </i> Number Flagged</th>
+              <th class="text-center"><i class="fa fa-group"> </i><a href="" ng-click="reverse = predicate == 'student_count' && !reverse; predicate = 'student_count'"> Number of <br>Students</a></th>
+              <th class="text-center"><i class="fa fa-check"> </i><a href="" ng-click="reverse = predicate == 'completed' && !reverse; predicate = 'completed'">Completed by <br>me</a></th>
+              <th class="text-center"><i class="fa fa-check"> </i><a href="" ng-click="reverse = predicate == 'confirmed' && !reverse; predicate = 'confirmed'">Confirmed by <br>management</a></th>
+              <th class="text-center"><i class="fa fa-flag"> </i><a href="" ng-click="reverse = predicate == 'flagged' && !reverse; predicate = 'flagged'"> Flagged by <br>management</a></th>
+              <th class="text-center"><i class="fa fa-asterisk"> </i><a href="" ng-click="reverse = predicate == 'modified_since_flagged' && !reverse; predicate = 'modified_since_flagged'"> Modified since <br>flagged</a></th>
               <th class="text-center"><i class="fa fa-check"> </i> Finished</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="read" ng-repeat="class in myClasses | filter:search" ng-click="edit(class.class)">
+            <tr class="read" ng-repeat="class in myClasses | filter:search | orderBy:predicate:reverse" ng-click="edit(class.class)">
                 <td class="view-message text-center">
                     {{class.class}}
                 </td>
@@ -62,6 +66,7 @@
                 </td>
                 <td class="view-message text-center"><a href="mail_view.html">{{class.confirmed}}</a></td>
                 <td class="view-message inbox-small-cells text-center">{{class.flagged}}</td>
+                <td class="view-message inbox-small-cells text-center">{{class.modified_since_flagged}}</td>
                 <td class="view-message text-center">
                   <span class='success' ng-if="(class.completed - class.confirmed + class.flagged) / 2 == class.student_count"><i class="fa fa-check"> </i></span>
                   <span class='failure' ng-if="(class.completed - class.confirmed + class.flagged) / 2 != class.student_count"><i class="fa fa-times"> </i></span>

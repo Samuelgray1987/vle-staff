@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
-  <li><a ng-href="#/">Reporting</a></li>
-  <li><a ng-href="#/report-cards">Report Cards</a></li>
+  <li><a ng-href="#/{{linkBack}}">Reporting</a></li>
+  <li><a ng-href="#/{{linkBack}}">{{ linkText }}</a></li>
   <li class="active">Edit {{class}} Report Cards</li>
 </ol>
 <h3>{{class}}</h3>
@@ -21,7 +21,8 @@ LEFT SIDEBAR CONTENT
               <li ng-repeat="student in incompletestudents | filter:search">
                 <a ng-click="selectStudent(student)" href="">
                   <img src="//placekitten.com/25/25" class="img-circle" width="25"> 
-                  &nbsp;{{student.student_forename}} {{student.student_surname}}
+                  &nbsp;{{student.student_forename}} {{student.student_surname}} 
+                  <small class=" pull-right"><i  class="fa fa-bookmark failure"> </i> Awaiting Report</small>
                 </a>
               </li>
             </ul>   
@@ -32,7 +33,19 @@ LEFT SIDEBAR CONTENT
               <li ng-repeat="student in completestudents | filter:search">
                 <a ng-click="selectStudent(student)" href="">
                   <img src="//placekitten.com/25/25" class="img-circle" width="25"> 
+                  &nbsp;{{student.student_forename}} {{student.student_surname}} 
+                  <small class=" pull-right"><i class="fa fa-check success"> </i>Complete</small>             
+                </a>
+              </li>
+            </ul> 
+          </tab>
+          <tab heading="Flags ({{hodflaggedstudents.length}})">
+            <ul class="nav nav-pills nav-stacked mail-nav">
+              <li ng-repeat="student in hodflaggedstudents | filter:search">
+                <a ng-click="selectStudent(student)" href="">
+                  <img src="//placekitten.com/25/25" class="img-circle" width="25"> 
                   &nbsp;{{student.student_forename}} {{student.student_surname}}
+                  <small class=" pull-right"><i class="fa fa-flag failure"> </i> <i ng-if="student.modified_since_flagged" class="fa fa-asterisk"> </i>Flagged</small>
                 </a>
               </li>
             </ul> 
@@ -59,12 +72,24 @@ MAINT CONTENT
                 <form ng-submit="updateReportCard(currentStudent)">
                   <div class="panel-body">          
                       <div class="compose-mail">
+                        <div ng-if="currentStudent.management_flagged_at">
+                          <!-- Flagged Comment-->
+                          <div ng-if="currentStudent.modified_since_flagged" class="alert alert-info">
+                            <i class="fa fa-asterisk"> </i> Modified by member of staff since flagged.
+                          </div>
+                          <div class="alert alert-danger">
+                            <i class="fa fa-flag"> </i> Flagged - {{ currentStudent.flagged_comment }}
+                            
+                          </div>
+                          <!--Flagged Comment -->
+                        </div>
                         <div class="form-group">
                           <div text-angular="text-angular" name="htmlcontent" ng-model="currentStudent.report_comment" ta-disabled='disabled' ></div>
                         </div>
                         <div class="characters-used">
                           <small>{{currentStudent.report_comment.length}} / 2000</small>
                         </div>
+                        <div class="alert alert-danger" ng-if="errors.report_comment">{{errors.report_comment}}</div>
                         <div class="alert alert-info" ng-if="flash">
                           {{flash}}
                         </div>

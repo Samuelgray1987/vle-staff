@@ -26,6 +26,9 @@ a, a:hover, a:focus {
     text-decoration: none;
     outline: none;
 }
+#text-angular {
+    overflow: hidden;
+}
 .failure {
     color: #ED5565;
 }
@@ -33,7 +36,7 @@ a, a:hover, a:focus {
     color: #48CFAD;
 }
 .ta-editor {
-  min-height: 300px;
+  min-height: 260px;
   height: auto;
   overflow: auto;
   font-family: inherit;
@@ -385,7 +388,7 @@ ul.sidebar-menu li a{
 }
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-    /*background: #3498DB;*/
+    background: #3498DB;
     color: #fff  !important;
     display: block;
 

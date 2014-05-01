@@ -38,7 +38,7 @@
             <!--logo end-->
 
             <div class="top-menu">
-                <?= $__env->make('topbar.main', array_except(get_defined_vars(), array('__data', '__path'))); ?>
+                <?php echo \View::make('topbar.main'); ?>
             </div>
         </header>
       <!--header end-->
@@ -55,22 +55,24 @@
                   <p class="centered"><a href="profile.html"><img src="//placekitten.com/100/100" class="img-circle" width="80"></a></p>
                   <h5 class="centered"><?= \Auth::user()->forename; ?> <?= \Auth::user()->surname; ?></h5>
                     
-                  <li class="mt">
+                  <li class="sub-menu">
                       <a href="/reports#/report-cards">
-                          <i class="fa fa-files-o"></i>
-                          <span>Report Cards</span>
+                          <i class="fa fa-file-o"></i>
+                          <span>My Report Cards</span>
                       </a>
                   </li>
                   <?php if ($data['hod']) : ?>
                   <li class="sub-menu">
-                      <a href="javascript:;" >
-                          <i class="fa fa-desktop"></i>
-                          <span>Manage Report Cards</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a ng-href="/reportsadmin#/report-cards-hod">My Subject Reports</a></li>
-                          <li><a ng-href="/reportsadmin#/report-cards-hod-all">All Subject Reports</a></li>
-                      </ul>
+                    <a ng-href="/reportsadmin#/report-cards-hod">
+                        <i class="fa fa-briefcase"></i>
+                        <span>HOD Report Cards</span>
+                    </a>
+                  </li>
+                  <li class="sub-menu">
+                    <a ng-href="/reportsadmin#/report-cards-hod-all">
+                        <i class="fa fa-files-o"></i>
+                        <span>All Report Cards</span>
+                    </a>
                   </li>
                   <?php endif; ?>
               </ul>

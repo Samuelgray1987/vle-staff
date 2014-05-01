@@ -129,4 +129,35 @@ angular.module('reports-services').factory("DeleteReportCard", function($resourc
 	});
 });
 
+angular.module('reports-services').factory("FlagReportCard", function($resource, FlashService){
+	return $resource('./reports/flagcard', {}, {
+		post: { method: 'POST', params: {}, isArray: false, 
+						interceptor: { 
+							response : function (data) {
+								return data.data;
+							},
+							responseError: function(data)
+							{	
+								return data.data;
+							}
+						} 
+	            }
+	});
+});
+
+angular.module('reports-services').factory("CompleteReportCard", function($resource, FlashService){
+	return $resource('./reports/completecard', {}, {
+		post: { method: 'POST', params: {}, isArray: false, 
+						interceptor: { 
+							response : function (data) {
+								return data.data;
+							},
+							responseError: function(data)
+							{	
+								return data.data;
+							}
+						} 
+	            }
+	});
+});
 
