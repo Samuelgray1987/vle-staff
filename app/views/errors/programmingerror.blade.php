@@ -37,7 +37,8 @@
 						<div class="panel-body minimal">
 							<img src="assets/img/500.png" alt="">
 							<h1>Don't Panic</h1>
-							<h3>The page you are looking for doesn't exist.</h3>
+							<h3>The page you are looking for has an error.</h3>
+							<small><a  class="btn btn-info" href="mailto:elearning@walbottlecampus.newcastle.sch.uk?subject=errors&body=Error details: {{ $error }}">Email errors to elearning</a></small>
 							<br>
 
 							<h5 class="mt">Hey, maybe you will be interested in these pages:</h5>
