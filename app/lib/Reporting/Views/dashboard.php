@@ -7,7 +7,7 @@
 <div class="row">
   <div class="col-md-6 mb">
     <label>Search by class: 
-      <input type="text" ng-model="search.class"></label>
+      <input type="text" ng-model="search.$"></label>
   </div>
 </div>
 

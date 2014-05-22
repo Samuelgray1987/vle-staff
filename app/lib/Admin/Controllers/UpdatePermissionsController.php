@@ -22,7 +22,6 @@ class UpdatePermissionsController extends BaseController {
 				return \Redirect::to("/")->with('error', 'Please login first.');
 			}
    		});	
-   		$this->beforeFilter('csrf_json', ['on' => 'post']);
    		$this->groupForm = $groupForm;
 		$this->group = $group;
 		$this->user = $user;

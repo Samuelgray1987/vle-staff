@@ -61,7 +61,7 @@
 	          		<tr ng-repeat="user in users | filter:search">
 	          			<td>{{user.forename}} {{user.surname}}</td>
 	          			<td>{{user.upn}}</td>
-	          			<td><input type="checkbox" class="is-user-active" user="{{user.username}}" group="{{group[0].id}}" ng-click="editUserPermissions(group[0].id, user.username)"></td>
+	          			<td><input type="checkbox" class="is-user-active" user="{{user.username}}" group="{{group[0].id}}" permissiongranted="{{user.checked}}" ng-click="editUserPermissions(group[0].id, user.username)"></td>
 	          		</tr>
 	          	</tbody>
 	          </table>

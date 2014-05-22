@@ -6,13 +6,16 @@ class StaffUserController extends BaseController {
 
 	protected $user;
 
-	public function __construct(\User $user) {
+	protected $group;
+
+	public function __construct(\Group $group, \User $user) {
 		$this->beforeFilter(function(){
    			if (!\Auth::user()) {
 				return \Redirect::to("/")->with('error', 'Please login first.');
 			}
    		});	
 		$this->user = $user;
+		$this->group = $group;
 	}
 	/**
 	 * Display a listing of the resource.
@@ -21,9 +24,18 @@ class StaffUserController extends BaseController {
 	 */
 	public function index()
 	{
-		$active = $this->user->orderBy('surname')->get()->toArray();
+		//Old code, too slow, replaced with \Admin\Controllers\HomeController
+		/*$active = $this->user->orderBy('surname')->get()->toArray();
 		$inactive = $this->user->orderBy('surname')->onlyTrashed()->get()->toArray();
-		return \Response::json(['active' => $active, 'inactive' => $inactive]);
+		foreach ($active as &$staff){
+			$users = $this->group->find(\Input::get('group'))->users()->where('user_id', $staff['username'])->get();
+			if (count($users) == 0) {
+				$staff['checked'] = false;
+			} else {	
+				$staff['checked'] = true;
+			}
+		}
+		return \Response::json(['active' => $active, 'inactive' => $inactive]);*/
 	}
 
 	/**

@@ -25,8 +25,10 @@ class AdminHomeController extends BaseController {
 		//Hod Permissions, this is specific to creating links not securing the areas.
 		$data['hod'] = 0;
 		$data['admin'] = 0;
+		$data['superadmin'] = 0;
 		if (\Auth::user()->groups) {
 			foreach (\Auth::user()->groups as $group) {
+				if ($group->name == "Super Admin") $data['superadmin'] = 1;
 				if ($group->subject_id != NULL) {
 					$data['subjects'][] = $group->subject_id;
 					$data['hod'] = 1;

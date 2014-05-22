@@ -161,8 +161,13 @@ angular.module('reports-controllers').controller('EditReportCardController', fun
   }
 
   $rootScope.hodFlag = function(card, comment) {
-    var flagCard = FlagReportCard.post({id: card.id, flagged_comment: comment}, function(data){
+    var flagCard = FlagReportCard.post({id: card.id, flagged_comment: comment,report_comment: card.report_comment,
+                                            student_upn: card.student_upn,
+                                            staff_upn: card.staff_upn,
+                                            report_comment: card.report_comment,
+                                            class_id: card.class_id }, function(data){
       //Success
+      card.id = data.id;
       FlashService.show(data.flash);
       $scope.currentStudent.flagged_comment = comment;
       //Add flag to the viewport
@@ -194,6 +199,7 @@ angular.module('reports-controllers').controller('EditReportCardController', fun
         if(card.student_upn == data.student_upn) { 
           data.modified_since_flagged = null;
           data.management_confirmed_at = null;
+          data.report_created_at = 1;
           data.management_flagged_at = 1;
         }
       });
@@ -207,9 +213,14 @@ angular.module('reports-controllers').controller('EditReportCardController', fun
   }
 
   $scope.hodComplete = function(card) {
-    var flagCard = CompleteReportCard.post({id: card.id}, {report_comment: card.report_comment}, function(data){
+    var flagCard = CompleteReportCard.post({id: card.id, report_comment: card.report_comment,
+                                            student_upn: card.student_upn,
+                                            staff_upn: card.staff_upn,
+                                            report_comment: card.report_comment,
+                                            class_id: card.class_id }, function(data){
       //Success
-      FlashService.show(data.flash);
+      FlashService.show("Report unflagged and marked as complete.");
+      card.id = data.id;
       //Remove flag from the viewport
       $scope.currentStudent.management_flagged_at = null;
       //Remove the student from the complete area.
@@ -231,6 +242,7 @@ angular.module('reports-controllers').controller('EditReportCardController', fun
       if (countFlagged == 0) {
         card.modified_since_flagged = null;
         card.management_confirmed_at = 1;
+        card.report_created_at = 1;
         $scope.hodcompletestudents.push(card);
       }
 
@@ -380,6 +392,87 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, currentStudent, $rootS
   $scope.ok = function (comment) {
     $modalInstance.close();
     $rootScope.hodFlag(currentStudent, comment);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+};
+
+/***********************
+******PRINTING**********
+************************/
+
+angular.module('reports-controllers').controller('PrintController', function(FlashService, $scope, $rootScope,PrintOverview, PrintGenerate, studentYeargroups, PrintAttainmentOptions, $modal, $log){
+  //Data
+  $scope.title = "Print Report Cards";
+  $scope.studentYeargroups = studentYeargroups.data;
+
+  $scope.yeargroup = "Please select a yeargroup";
+
+  $scope.changeYeargroup = function (year, startyear) {
+    $scope.yeargroup = year;
+    PrintOverview.get({ yeargroup: year }, function(data){
+      $scope.reports = data.data;
+    });
+    PrintAttainmentOptions.get({ startyear: startyear }, function(data){
+       $scope.attainmentOptions = data.data;
+    });
+  }
+
+  $scope.generateReport = function (attainmentSelection) {
+    if (!attainmentSelection) return alert("Please select an attainment date");
+    $scope.loading = true;
+    PrintGenerate.get({ yeargroup: $scope.yeargroup, attainment_date: attainmentSelection }, function(data){
+      PrintOverview.get({ yeargroup: $scope.yeargroup }, function(data){
+        $scope.reports = data.data;
+        $scope.loading = false;
+      });
+      $scope.loading = false;
+    });
+  }
+
+  //Modals
+  $scope.open = function (upn, surname, forename) {
+    var modalInstance = $modal.open({
+      templateUrl: 'myModalContent.html',
+      controller: PrintErrorsModalInstance,
+      size: "lg",
+      resolve: {
+        upn: function () {
+          return upn;
+        },
+        surname: function() {
+          return surname;
+        },
+        forename: function() {
+          return forename;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+
+  //Debugging
+  window.scope = $scope;
+});
+
+var PrintErrorsModalInstance = function ($scope, $modalInstance, upn, forename, surname, PrintStudentErrors) {
+  $scope.upn = upn;
+  $scope.forename = forename;
+  $scope.surname = surname;
+
+  PrintStudentErrors.get({upn: $scope.upn}, function(data){
+    $scope.errors = data.data;
+  });
+  
+  $scope.ok = function () {
+    $modalInstance.close();
   };
 
   $scope.cancel = function () {

@@ -15,17 +15,19 @@ userDirectives.directive("isResourceActive", function(IsPermissionGranted, Flash
 	}
 });
 
-userDirectives.directive("isUserActive", function(IsUserPermissionGranted, FlashService, CSRF_TOKEN){
+userDirectives.directive("isUserActive", function(IsUserPermissionGranted, FlashService, CSRF_TOKEN, $compile){
 	return {
 		restrict: 'C',
 		scope: {},
 		link: function (scope, element, attrs) {
-			var permissions = IsUserPermissionGranted.check({group: attrs.group, user: attrs.user, CSRF_TOKEN: CSRF_TOKEN}, function(data){ 
-	      		if (data == 'true') {
-					element.attr("checked", true);
-					/*$compile(element[0].form)(scope);*/
-	      		}
-		    });
+			if (attrs.permissiongranted == 'true') {
+				element.attr("checked", true);
+				$compile(element[0].form)(scope);
+      		} else {
+      			element.attr("checked", false);
+				$compile(element[0].form)(scope);
+      		}
+
 	    }
 	}
 });

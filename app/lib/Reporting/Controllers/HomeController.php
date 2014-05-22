@@ -14,11 +14,6 @@ class HomeController extends BaseController {
 
 	public function __construct(\User $user,\Reporting\Models\StaffClasses $staffClasses, \Reporting\Validation\ReportCardForm $reportCardForm, \Reporting\Models\ReportCard $reportCard)
 	{
-		/*$this->beforeFilter(function(){
-   			if (!\Auth::user()) {
-				return \Redirect::to("/")->with('error', 'Please login first.');
-			}
-   		});	*/
 		$this->user = $user;
 		$this->staffClasses = $staffClasses; 
 		$this->reportCardForm = $reportCardForm;
@@ -30,8 +25,10 @@ class HomeController extends BaseController {
 		//Hod Permissions, this is specific to creating links not securing the areas.
 		$data['hod'] = 0;
 		$data['admin'] = 0;
+		$data['superadmin'] = 0;
 		if (\Auth::user()->groups) {
 			foreach (\Auth::user()->groups as $group) {
+				if ($group->name == "Super Admin") $data['superadmin'] = 1;
 				if ($group->subject_id != NULL) {
 					$data['subjects'][] = $group->subject_id;
 					$data['hod'] = 1;
@@ -91,6 +88,20 @@ class HomeController extends BaseController {
 			$card->modified_since_flagged = NULL;
 			$card->save();
 			return \Response::json(['flash' => 'Report flagged.']);
+		} else {
+			$reportCard = new $this->reportCard;
+			$reportCard->comment = \Input::get('report_comment');
+			$reportCard->flagged_comment = \Input::get('flagged_comment');
+			$reportCard->student_upn = \Input::get('student_upn');
+			$reportCard->staff_upn = \Input::get('staff_upn');
+			$reportCard->class_id = \Input::get('class_id');
+			$reportCard->management_flagged_at = \Carbon\Carbon::now();
+			$reportCard->management_confirmed_at = NULL;
+			$reportCard->modified_since_flagged = NULL;
+			$reportCard->created_at = \Carbon\Carbon::now();
+			$reportCard->updated_at =  \Carbon\Carbon::now();
+			$reportCard->save();
+			return \Response::json(['flash' => 'Report flagged.', 'id' => $reportCard->id]);
 		}
 		return \Response::json(['flash' => 'That report has not yet been completed by the teacher.'], 500);
 	}
@@ -105,7 +116,21 @@ class HomeController extends BaseController {
 			$card->modified_since_flagged = NULL;
 			$card->management_confirmed_at = \Carbon\Carbon::now();
 			$card->save();
-			return \Response::json(['flash' => 'Report unflagged and marked as complete.']);
+			return \Response::json(['flash' => 'Report unflagged and marked as complete.', 'id' => \Input::get('id')]);
+		} else {
+			$reportCard = new $this->reportCard;
+			$reportCard->comment = \Input::get('report_comment');
+			$reportCard->student_upn = \Input::get('student_upn');
+			$reportCard->staff_upn = \Input::get('staff_upn');
+			$reportCard->class_id = \Input::get('class_id');
+			$reportCard->management_flagged_at = NULL;
+			$reportCard->flagged_comment = NULL;
+			$reportCard->modified_since_flagged = NULL;
+			$reportCard->management_confirmed_at = \Carbon\Carbon::now();
+			$reportCard->created_at = \Carbon\Carbon::now();
+			$reportCard->updated_at =  \Carbon\Carbon::now();
+			$reportCard->save();
+			return \Response::json(['id' => $reportCard->id]);
 		}
 		return \Response::json(['flash' => 'That report has not yet been completed by the teacher.'], 500);
 	}

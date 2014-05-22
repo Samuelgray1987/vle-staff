@@ -52,6 +52,16 @@ var reports = angular.module('reports', [
  		}
  	});
 
+ 	$routeProvider.when('/report-cards-print',{
+ 		templateUrl: './views/reportsadmin/print',
+ 		controller: 'PrintController',
+ 		resolve: {
+ 			studentYeargroups: function(StartYeargroup) {
+ 				return StartYeargroup.get();
+ 			}
+ 		}
+ 	});
+
  	$routeProvider.when('/report-cards/edit-report-cards',{
  		templateUrl: './views/reports/reportcard/edit-report-cards',
  		controller: 'EditReportCardController'

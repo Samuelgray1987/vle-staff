@@ -218,13 +218,6 @@ abstract class Controller {
 	protected function setupLayout() {}
 
 	/**
-	 * Create the layout used by the controller.
-	 *
-	 * @return void
-	 */
-	protected function setupView() {}
-
-	/**
 	 * Execute an action on the controller.
 	 *
 	 * @param string  $method
@@ -233,8 +226,6 @@ abstract class Controller {
 	 */
 	public function callAction($method, $parameters)
 	{
-		$this->setupView();
-
 		$this->setupLayout();
 
 		$response = call_user_func_array(array($this, $method), $parameters);
@@ -269,6 +260,8 @@ abstract class Controller {
 	 * @param  string  $method
 	 * @param  array   $parameters
 	 * @return mixed
+	 *
+	 * @throws \BadMethodCallException
 	 */
 	public function __call($method, $parameters)
 	{

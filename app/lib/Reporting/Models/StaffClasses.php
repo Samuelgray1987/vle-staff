@@ -38,6 +38,7 @@ class StaffClasses extends \Eloquent {
 								CONCAT(LEFT(staff_users.forename, 1), " ", staff_users.surname) AS staff_name'
 							  ))
 							->where('student_class_list.class', '=', $class)
+							->groupBy('student_users.upn')
 							->orderBy('student_users.surname');
 	}
 	public function hodclasses() {
@@ -100,6 +101,5 @@ class StaffClasses extends \Eloquent {
 		$query->whereRaw(\DB::raw("staff_classes.class REGEXP '10.'"));
 		$query->groupBy('class');
 		return $query->orderBy('class')->get();
-	}
-	
+	}	
 }

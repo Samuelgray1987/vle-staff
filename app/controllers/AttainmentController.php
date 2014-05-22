@@ -8,11 +8,14 @@ class AttainmentController extends BaseController {
 
 	protected $attainmentLegend;
 
-	public function __construct(User $user, Attainment $attainment, AttainmentLegend $attainmentLegend)
+	protected $subjects;
+
+	public function __construct(User $user, Attainment $attainment, AttainmentLegend $attainmentLegend, Subjects $subjects)
 	{
 		$this->user = $user;
 		$this->attainment = $attainment; 
 		$this->attainmentLegend = $attainmentLegend;
+		$this->subjects = $subjects;
 	}
 
 	public function getEntries()
@@ -20,6 +23,13 @@ class AttainmentController extends BaseController {
 		$upn = Input::get('upn');
 		if (!$upn) $upn = "P391201205015";
 		$entries = $this->attainment->studentEntries($upn);
+		return Response::json($entries);
+	}
+	public function getEntriesstartyear()
+	{
+		$startyear = Input::get('startyear');
+		if (!$startyear) $startyear = 2010;
+		$entries = $this->attainment->startyearEntries($startyear);
 		return Response::json($entries);
 	}
 	public function getResults()
@@ -35,6 +45,7 @@ class AttainmentController extends BaseController {
 		//Process data for google charts.
 		$myAttainment = $this->attainment->where('upn', '=', $upn)->where('date', $entry)->take($limit)->get();
 		$attainmentLegend = $this->attainmentLegend->get();
+		$subjects = $this->subjects->get();
 
 		foreach ($myAttainment as &$myAttain) {
 			foreach($attainmentLegend as $al)
@@ -42,6 +53,9 @@ class AttainmentController extends BaseController {
 				if ( ($myAttain->target) == $al->id ) $myAttain->targetN = doubleval($al->points);
 				if ( ($myAttain->current) == $al->id ) $myAttain->currentN = doubleval($al->points);
 				if ( ($myAttain->predicted) == $al->id ) $myAttain->predictedN = doubleval($al->points);
+			}
+			foreach ($subjects as $s) {
+				if ( (trim($myAttain->subject) == trim($s->code)) ) $myAttain->subject = $s->name;
 			}
 		}
 
@@ -84,6 +98,7 @@ class AttainmentController extends BaseController {
 		//Process data for google charts.
 		$myAttainment = $this->attainment->where('upn', '=', $upn)->where('date', $entry)->take($limit)->get();
 		$attainmentLegend = $this->attainmentLegend->get();
+		$subjects = $this->subjects->get();
 
 		foreach ($myAttainment as &$myAttain) {
 			foreach($attainmentLegend as $al)
@@ -91,6 +106,9 @@ class AttainmentController extends BaseController {
 				if ( ($myAttain->target) == $al->id ) $myAttain->targetN = doubleval($al->points);
 				if ( ($myAttain->current) == $al->id ) $myAttain->currentN = doubleval($al->points);
 				if ( ($myAttain->predicted) == $al->id ) $myAttain->predictedN = doubleval($al->points);
+			}
+			foreach ($subjects as $s) {
+				if ( (trim($myAttain->subject) == trim($s->code)) ) $myAttain->subject = $s->name;
 			}
 		}
 

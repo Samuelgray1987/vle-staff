@@ -35,7 +35,6 @@ class AuthController extends BaseController {
 
 	public function postLogin()
 	{
-
 		try 
 		{
 			$adldap = new $this->adauth;
@@ -68,7 +67,7 @@ class AuthController extends BaseController {
 					$realLink = $this->realsmartLogin->login(Auth::user()->upn);
 					Session::put('realsmart', $realLink);
 
-					return Redirect::to('/reports#/')->with('success', 'Successfully logged in.');
+					return Redirect::to('/reporting#/report-cards')->with('success', 'Successfully logged in.');
 				} else {
 					throw new Exception ("Failed");
 				}

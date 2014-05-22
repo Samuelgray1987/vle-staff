@@ -5,13 +5,14 @@
  *
  */
 
-angular.module('user-services').factory("StaffUsers", function($http, FlashService){
+angular.module('user-services').factory("StaffUsers", function($http, FlashService, $route){
 	var usersError = function(response){
 		FlashService.show(response.flash);
 	};
 	return {
 		get: function() {
-			var users = $http.get("./adminuser");
+			var users = $http.get("./admin/permissionsstaff/" + $route.current.params.id);
+
 			users.success(FlashService.clear);
 			users.error(usersError);
 			return users;

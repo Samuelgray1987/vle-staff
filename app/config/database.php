@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'vle_staff',
+			'database'  => 'vle_staff_dup',
 			'username'  => 'root',
 			'password'  => '345564',
 			'charset'   => 'utf8',

@@ -1,0 +1,69 @@
+hr.report {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 0;
+  border-top: 2px solid #222;
+}
+
+.blueTitle {
+	font-weight: bold;
+	color: #0988bb;
+	margin-right: 50px;
+}
+
+.blue {
+	color: #0988bb;
+}
+
+.blueBG {
+	background: #add9eb;
+	padding: 10px;
+}
+
+.schoolReports {
+
+	text-align: justify;
+
+}
+
+.pageBreak {
+
+	page-break-after: always;
+
+}
+
+
+@media print {
+
+.blueTitle {
+	font-weight: bold !important; 
+	color: #0988bb !important;
+	margin-right: 50px !important;
+}
+
+.blue {
+	color: #0988bb !important ;
+}
+
+.blueBG {
+	background: #add9eb !important;
+	padding: 10px !important;
+}
+
+P {
+	font-size: 10pt;
+}
+
+.pageBreak {
+
+	page-break-after: always;
+
+}
+
+.frontCover {
+
+	margin-top: 50px;
+
+}
+
+}

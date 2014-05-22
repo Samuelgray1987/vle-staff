@@ -58,6 +58,8 @@ $framework = $app['path.base'].'/vendor/laravel/framework/src';
 
 require $framework.'/Illuminate/Foundation/start.php';
 
+require $app['path.base'].'/app/ioc.php';
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

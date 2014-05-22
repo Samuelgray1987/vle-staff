@@ -31,6 +31,17 @@ angular.module('reports-services').factory("Classes", function($http, FlashServi
 	}
 });
 
+angular.module('reports-services').factory("StartYeargroup", function($http, FlashService){
+	return { 
+		get: function() {
+			var data = $http.get("./student-data/studentstartyear");
+			data.success(FlashService.clear);
+			data.error("Error retrieving class data.");
+			return data;
+		}
+	}
+});
+
 angular.module('reports-services').factory("GetClassReports", function($resource, FlashService){
 	return $resource('./report/classes', {}, {
 		get: { method: 'POST', params: {}, isArray: true, 
@@ -98,7 +109,7 @@ angular.module('reports-services').factory("GetAttainmentTableData", function($r
 });
 
 angular.module('reports-services').factory("InsertReportCard", function($resource, FlashService){
-	return $resource('./reports/insertcard', {}, {
+	return $resource('./reporting/insertcard', {}, {
 		insert: { method: 'POST', params: {}, isArray: false, 
 						interceptor: { 
 							response : function (data) {
@@ -114,7 +125,7 @@ angular.module('reports-services').factory("InsertReportCard", function($resourc
 });
 
 angular.module('reports-services').factory("DeleteReportCard", function($resource, FlashService){
-	return $resource('./reports/deletecard', {}, {
+	return $resource('./reporting/deletecard', {}, {
 		delete: { method: 'POST', params: {}, isArray: false, 
 						interceptor: { 
 							response : function (data) {
@@ -130,7 +141,7 @@ angular.module('reports-services').factory("DeleteReportCard", function($resourc
 });
 
 angular.module('reports-services').factory("FlagReportCard", function($resource, FlashService){
-	return $resource('./reports/flagcard', {}, {
+	return $resource('./reporting/flagcard', {}, {
 		post: { method: 'POST', params: {}, isArray: false, 
 						interceptor: { 
 							response : function (data) {
@@ -146,7 +157,7 @@ angular.module('reports-services').factory("FlagReportCard", function($resource,
 });
 
 angular.module('reports-services').factory("CompleteReportCard", function($resource, FlashService){
-	return $resource('./reports/completecard', {}, {
+	return $resource('./reporting/completecard', {}, {
 		post: { method: 'POST', params: {}, isArray: false, 
 						interceptor: { 
 							response : function (data) {
@@ -161,3 +172,66 @@ angular.module('reports-services').factory("CompleteReportCard", function($resou
 	});
 });
 
+angular.module('reports-services').factory("PrintOverview", function($resource, FlashService){
+	return $resource('./reports-printing/printoverview', {}, {
+		get: { method: 'GET', params: {}, isArray: false, 
+						interceptor: { 
+							response : function (data) {
+								return data.data;
+							},
+							responseError: function(data)
+							{	
+								return data.data;
+							}
+						} 
+	            }
+	});
+});
+
+angular.module('reports-services').factory("PrintGenerate", function($resource, FlashService){
+	return $resource('./reports-printing', {}, {
+		get: { method: 'GET', params: {}, isArray: false, 
+						interceptor: { 
+							response : function (data) {
+								return data.data;
+							},
+							responseError: function(data)
+							{	
+								return data.data;
+							}
+						} 
+	            }
+	});
+});
+
+angular.module('reports-services').factory("PrintAttainmentOptions", function($resource, FlashService){
+	return $resource('./reports-printing/printattainmentoptions', {}, {
+		get: { method: 'GET', params: {}, isArray: false, 
+						interceptor: { 
+							response : function (data) {
+								return data.data;
+							},
+							responseError: function(data)
+							{	
+								return data.data;
+							}
+						} 
+	            }
+	});
+});
+
+angular.module('reports-services').factory("PrintStudentErrors", function($resource, FlashService){
+	return $resource('./reports-printing/studenterrors', {}, {
+		get: { method: 'GET', params: {}, isArray: false, 
+						interceptor: { 
+							response : function (data) {
+								return data.data;
+							},
+							responseError: function(data)
+							{	
+								return data.data;
+							}
+						} 
+	            }
+	});
+});

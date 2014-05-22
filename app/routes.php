@@ -5,12 +5,13 @@
  *****************
  */
 	//Unsecure
-	Route::get('/', "AuthController@getIndex");
 	Route::controller('/auth', "AuthController");
+	
 	//Secure
 	Route::group(array('before' => 'stdauth'), function(){
 		Route::resource('/staff/class', "StaffClassesController");
 		Route::controller('/attainment', "AttainmentController");
+		Route::controller('/student-data', "StudentDataController");
 	});
 
 /*
@@ -50,7 +51,7 @@
  */
 	Route::group(array('before' => 'stdauth'), function(){
 		//Load Template View
-		Route::controller('/reports', "\Reporting\Controllers\HomeController");
+		Route::controller('/reporting', "\Reporting\Controllers\HomeController");
 
 		//BACKEND ROUTING
 		Route::controller('/report/classes', "\Reporting\Controllers\ReportController");
@@ -81,3 +82,18 @@
 			return View::make('Reporting::admin.admin-edit-report-cards');
 		});
 	});
+
+	/*******************
+	 ** PRINTING AREA **
+	 *******************
+	*/
+	Route::group(array('before' => 'stdauth'), function(){
+		//Secure template view
+		Route::controller('/reports-printing', "\Reporting\Controllers\PrintController");
+		//ANGULAR FRONTEND ROUTING
+		Route::get('/views/reportsadmin/print', function(){
+			return View::make('Reporting::print.dashboard');
+		});
+	});
+
+Route::get('/', "AuthController@getIndex");

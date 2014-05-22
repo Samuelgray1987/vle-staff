@@ -56,24 +56,32 @@
                   <h5 class="centered"><?= \Auth::user()->forename; ?> <?= \Auth::user()->surname; ?></h5>
                     
                   <li class="sub-menu">
-                      <a href="./reports#/report-cards">
+                      <a href="./reporting#/report-cards" is-active link="/report-cards">
                           <i class="fa fa-file-o"></i>
                           <span>My Report Cards</span>
                       </a>
                   </li>
                   <?php if ($data['hod'] == 1) : ?>
                   <li class="sub-menu">
-                    <a ng-href="./reportsadmin#/report-cards-hod">
+                    <a ng-href="./reportsadmin#/report-cards-hod" is-active link="/report-cards-hod">
                         <i class="fa fa-briefcase"></i>
                         <span>HOD Report Cards</span>
                     </a>
                   </li>
                   <?php endif; ?>
-                  <?php if ($data['admin'] == 1) : ?>
+                  <?php if ($data['admin'] == 1 || $data['hod'] == 1) : ?>
                   <li class="sub-menu">
-                    <a ng-href="./reportsadmin#/report-cards-hod-all">
+                    <a ng-href="./reportsadmin#/report-cards-hod-all"  is-active link="/report-cards-hod-all">
                         <i class="fa fa-files-o"></i>
                         <span>All Report Cards</span>
+                    </a>
+                  </li>
+                  <?php endif; ?>
+                  <?php if ($data['superadmin'] == 1) : ?>
+                  <li class="sub-menu">
+                    <a ng-href="./reportsadmin#/report-cards-print"  is-active link="/report-cards-print">
+                        <i class="fa fa-print"></i>
+                        <span>Print Report Cards</span>
                     </a>
                   </li>
                   <?php endif; ?>

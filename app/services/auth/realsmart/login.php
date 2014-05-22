@@ -28,9 +28,7 @@ class RealsmartLogin {
 			$token = $xml->getToken->response;
 			$location = $this->webSiteToLogIntoUrl . '?token=' . $token;
 			return $location;	
-		} else {
-			throw new \Exception("Could not login to Google");
-		}
+		} 
 	}
 	public function get_data($url)
 	{

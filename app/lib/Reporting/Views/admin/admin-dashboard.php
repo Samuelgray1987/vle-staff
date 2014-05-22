@@ -14,9 +14,9 @@
     <header class="panel-heading wht-bg">
       <h4 class="gen-case">
         {{title}} <small><br>Current Report Collection: Year 10</small>
-          <form action="#" class="pull-right mail-src-position">
+          <form class="pull-right mail-src-position">
               <div class="input-append">
-                <input class="form-control" type="text"  placeholder="Search Classes" ng-model="search.class"></label>
+                <input class="form-control" type="text"  placeholder="Search Classes" ng-model="search.$"></label>
               </div>
           </form>
       </h4>
